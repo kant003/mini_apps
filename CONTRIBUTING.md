@@ -19,14 +19,15 @@ git fetch --all
 ## Politica de ramas
 - master: siempre estable, es lo que ve el cliente, aqui guardamos las releases
 - develop: todas las features aprobadas del sprint
-- feature/UHXX-YYYY: una rama por cada historia de usuario o tarea tecnica
+- feature/UH-<número>-<slug>: una rama por cada historia de usuario o tarea tecnica
 
 ## Descargar todas las ramas
 ```bash
 git switch master    ||   git checkout master
 git pull origin master
-git switch -c develop
-git pull origin develop
+git switch -c develop --track origin/develop  # si no existe localmente
+# o, si ya existe:
+# git switch develop && git pull origin develop
 ```
 
 # Desarrollar una feature (UH)
@@ -36,8 +37,8 @@ git pull origin develop
 
 ```bash
 git switch develop
-git pull origin develop
-git switch -c feature/UH-12-XXXX
+git pull --ff-only origin develop
+git switch -c feature/UH-12-xxxx
 ```
 
 No ponemos a trabajar lanzando pequeños commits sobre esa feature (rama)
@@ -59,10 +60,11 @@ git fetch origin
 git rebase origin/develop       # preferiblemente rebase (esto nos va a generar un historial de commit mas limpio)
 # si hay conflictos se tienen que resolver
   git add
-  git rabase --continue
+  git rebase --continue
+git push --force-with-lease
 ```
 
-## publicar tu rama (feature en develo)
+## publicar tu rama (feature en develop)
 ```bash
 git push -u origin feature/UH-12-XXXX
 ```
@@ -74,7 +76,7 @@ git push -u origin feature/UH-12-XXXX
 
 ## Aprobación
 Cuando un compañero acepte la PR, realizará un merge Squash & Merge de la rama feature a la rama develp
-Y cerrá la Issue (normalmente de forma automática)
+Y cerrará la Issue (normalmente de forma automática)
 Hay 3 formas
 1) Create a merge commit
 2) Squash and merge <-- recomendado
@@ -99,12 +101,18 @@ git push origin --delete feature/UH-12-XXXX
 No olvides de pasar la UH que estaba en TO DO a la columna DONE
 
 
-# Integración con Main
-Cuando el sprint termina, tenemos que integrar la rama develop a main
+# Integración con Master
+Cuando el sprint termina, tenemos que integrar la rama develop a master
+Hazlo con PR (mejor trazabilidad) o por CLI:
+
 ```bash
-git switch main
-git pull origin master
-git tag -a v1.2.0 -m "Relase xxx"
+git switch master
+git pull --ff-only origin master
+git merge --ff-only origin/develop   # o haz PR de develop→master
+git push origin master
+
+# Tag SemVer + notas
+git tag -a v1.2.0 -m "release: v1.2.0"
 git push origin v1.2.0
 ```
 
