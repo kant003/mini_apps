@@ -4,6 +4,7 @@
 ```bash
 git config --global user.name "XXX"
 git config --global user.email "XXX"
+git config --global core.editor "code --wait"
 ```
 
 ## Clonar el repo
@@ -46,12 +47,13 @@ No ponemos a trabajar lanzando pequeños commits sobre esa feature (rama)
 
 ```bash
 git add .
-git commit -m " .....  "
+git commit
 ```
 
 
 ## Sincronizamos la rama develop
 para evitar la mayor parte de los conflictos
+esto actualiza la rama feature con los cambio en develop
 ```bash
 git fetch origin
 git rebase origin/develop       # preferiblemente rebase (esto nos va a generar un historial de commit mas limpio)
@@ -61,8 +63,9 @@ git rebase origin/develop       # preferiblemente rebase (esto nos va a generar 
 ```
 
 ## publicar tu rama (feature en develo)
+```bash
 git push -u origin feature/UH-12-XXXX
-
+```
 
 ## Abrir una PR (pull request)
 
