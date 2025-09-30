@@ -96,6 +96,30 @@ git switch main
 git pull origin master
 git tag -a v1.2.0 -m "Relase xxx"
 git push origin v1.2.0
+```
+
+
+
+# Estructura de un commit
+
+<tipo>[scope]: <descripción>
+
+[Descripción mas detallada]
+
+[footer]
+
+
+
+Tipos:
+- feat
+- fix
+- docs
+- style
+- ....
+
+
+
+
 
 
 
