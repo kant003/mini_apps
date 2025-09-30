@@ -75,6 +75,13 @@ git push -u origin feature/UH-12-XXXX
 ## Aprobación
 Cuando un compañero acepte la PR, realizará un merge Squash & Merge de la rama feature a la rama develp
 Y cerrá la Issue (normalmente de forma automática)
+Hay 3 formas
+1) Create a merge commit
+2) Squash and merge <-- recomendado
+3) Rebase and merge
+
+
+
 
 ## Tras el merge
 refrescamos develp
