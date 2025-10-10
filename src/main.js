@@ -1,28 +1,32 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
+import './style.css';
 
-
-
-console.log('🚀 Proyecto Mini-Apps listo.');
-
-// Ejemplo: inyectar menú de apps
 const menu = document.getElementById('menu');
 const appContainer = document.getElementById('app');
 
-// Lista inicial de apps (se irá ampliando)
 const apps = [
-  { id: 'clock', name: 'Reloj' },
-  { id: 'stopwatch', name: 'Cronómetro' },
-  // ...
+  { id: 'saludar', name: 'Mi saludo' },
+  //{ id: 'clock',  name: 'Reloj' },
 ];
 
-apps.forEach((app) => {
+const loaders = {
+  saludar: () => import('./apps/saludar/main.js'),
+  //clock:  () => import('./apps/clock/main.js'),
+};
+
+async function loadApp(id) {
+  const loader = loaders[id];
+  if (!loader) {
+    appContainer.innerHTML = `<p>No se encontró la app <strong>${id}</strong></p>`;
+    return;
+  }
+  await loader();
+  appContainer.innerHTML = '';
+  appContainer.appendChild(document.createElement(`${id}-app`));
+}
+
+apps.forEach(app => {
   const btn = document.createElement('button');
   btn.textContent = app.name;
-  btn.addEventListener('click', () => {
-    appContainer.innerHTML = `<h2>${app.name}</h2><p>Aquí irá la app ${app.id}</p>`;
-  });
+  btn.addEventListener('click', () => loadApp(app.id));
   menu.appendChild(btn);
 });
-
