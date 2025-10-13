@@ -5,12 +5,12 @@ const appContainer = document.getElementById('app');
 
 const apps = [
   { id: 'saludar', name: 'Mi saludo' },
-  //{ id: 'clock',  name: 'Reloj' },
+  { id: 'calculadoraimc', name: 'Calculadora IMC' }
 ];
 
 const loaders = {
   saludar: () => import('./apps/saludar/main.js'),
-  //clock:  () => import('./apps/clock/main.js'),
+  calculadoraimc: () => import('./apps/calculadora-imc/main.js'),
 };
 
 async function loadApp(id) {
