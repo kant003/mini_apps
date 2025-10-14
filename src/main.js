@@ -5,11 +5,13 @@ const appContainer = document.getElementById('app');
 
 const apps = [
   { id: 'saludar', name: 'Mi saludo' },
+  {id: 'audio_player', name: 'music'}
   //{ id: 'clock',  name: 'Reloj' },
 ];
 
 const loaders = {
   saludar: () => import('./apps/saludar/main.js'),
+  audio_player: ()=> import('./apps/audio_player/main.js')
   //clock:  () => import('./apps/clock/main.js'),
 };
 
