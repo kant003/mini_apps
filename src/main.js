@@ -5,13 +5,15 @@ const appContainer = document.getElementById('app');
 
 const apps = [
   { id: 'saludar', name: 'Mi saludo' },
-  { id: 'lanzar-moneda', name: 'Lanzador de moneda' }
+  { id: 'confeti', name: 'Efecto Confeti' },
+  { id: 'r_color', name: 'Generador de Colores Aleatorios' },
   //{ id: 'clock',  name: 'Reloj' },
 ];
 
 const loaders = {
   saludar: () => import('./apps/saludar/main.js'),
-  'lanzar-moneda': () => import('./apps/lanzarMoneda/main.js'),
+  confeti: () => import('./apps/Confeti/Main.js'),
+  r_color: () => import('./apps/r_color/main.js'),
   //clock:  () => import('./apps/clock/main.js'),
 };
 
