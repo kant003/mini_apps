@@ -5,16 +5,14 @@ const appContainer = document.getElementById('app');
 
 const apps = [
   { id: 'saludar', name: 'Mi saludo' },
-  //{ id: 'clock', name: 'Reloj' },
-  { id: 'confeti', name: 'Efecto Confeti' },
-  { id: 'calculadoraimc', name: 'Calculadora IMC' }
+  { id: 'piedra', name: 'Piedra, papel o tijera' },
+  //{ id: 'clock',  name: 'Reloj' },
 ];
 
 const loaders = {
   saludar: () => import('./apps/saludar/main.js'),
+  piedra: () => import('./apps/piedra/main.js'),
   //clock:  () => import('./apps/clock/main.js'),
-  confeti: () => import('./apps/confeti/main.js'),
-  calculadoraimc: () => import('./apps/calculadora-imc/main.js'),
 };
 
 async function loadApp(id) {
