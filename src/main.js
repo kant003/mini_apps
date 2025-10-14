@@ -5,11 +5,13 @@ const appContainer = document.getElementById('app');
 
 const apps = [
   { id: 'saludar', name: 'Mi saludo' },
+  { id: 'contador', name: 'Contador de Clicks' },
   //{ id: 'clock',  name: 'Reloj' },
 ];
 
 const loaders = {
   saludar: () => import('./apps/saludar/main.js'),
+  'contador': () => import('./apps/contadorClicks/main.js'),
   //clock:  () => import('./apps/clock/main.js'),
 };
 
@@ -24,7 +26,7 @@ async function loadApp(id) {
   appContainer.appendChild(document.createElement(`${id}-app`));
 }
 
-apps.forEach(app => {
+apps.forEach((app) => {
   const btn = document.createElement('button');
   btn.textContent = app.name;
   btn.addEventListener('click', () => loadApp(app.id));
