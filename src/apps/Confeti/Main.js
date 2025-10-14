@@ -19,7 +19,6 @@ class ConfetiApp extends HTMLElement {
   }
 
   onClick = () => {
-    // Obtener la posición y tamaño del botón
     const rect = this.$btn.getBoundingClientRect();
     const x = (rect.left + rect.width / 2) / window.innerWidth;
     const y = (rect.top + rect.height / 2) / window.innerHeight;
