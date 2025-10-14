@@ -1,0 +1,21 @@
+<!-- view.html -->
+
+<div class="game-container">
+    <h1>Piedra, Papel o Tijera</h1>
+    <p>Veces jugadas: <span id="gamesPlayed">0</span></p>
+    <div class="scores">
+        <p>Usuario: <span id="userScore">0</span></p>
+        <p>Bot: <span id="computerScore">0</span></p>
+    </div>
+    <div class="controls">
+        <label for="options">Elige una opción:</label>
+        <select id="options">
+            <option value="piedra">Piedra</option>
+            <option value="papel">Papel</option>
+            <option value="tijera">Tijera</option>
+        </select>
+        <button id="play">Jugar</button>
+        <button id="reset">Reiniciar</button>
+    </div>
+    <div id="result"></div>
+</div>
