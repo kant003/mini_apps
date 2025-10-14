@@ -1,0 +1,31 @@
+form {
+  margin-bottom: 20px;
+  font-family: Arial, sans-serif;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+}
+
+input[type="number"] {
+  width: 100px;
+  margin-bottom: 10px;
+}
+
+button {
+  margin-top: 10px;
+  font-family: Arial, sans-serif;
+}
+
+.error {
+  color: #c00;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+#out {
+  margin-top: 20px;
+  font-weight: bold;
+  color: #00782f;
+}
