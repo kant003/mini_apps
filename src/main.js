@@ -5,11 +5,13 @@ const appContainer = document.getElementById('app');
 
 const apps = [
   { id: 'saludar', name: 'Mi saludo' },
+  { id: 'unidades', name: 'Calculadora de Unidades'}
   //{ id: 'clock',  name: 'Reloj' },
 ];
 
 const loaders = {
   saludar: () => import('./apps/saludar/main.js'),
+  unidades: () => import('./apps/calcularUnidades/main.js')
   //clock:  () => import('./apps/clock/main.js'),
 };
 
