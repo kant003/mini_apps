@@ -26,7 +26,7 @@ const loaders = {
   clock: () => import('./apps/horaActual/main.js'),
   audio_player: () => import('./apps/audio_player/main.js'),
   piedra: () => import('./apps/piedra/main.js'),
-  conversor-divisas: () => import('./apps/conversorDivisas/main.js'),
+  'conversor-divisas': () => import('./apps/conversorDivisas/main.js'),
   //clock:  () => import('./apps/clock/main.js'),
 };
 
