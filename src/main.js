@@ -11,8 +11,13 @@ const apps = [
   { id: 'clock', name: 'Reloj' },
   { id: 'audio_player', name: 'music' },
   { id: 'piedra', name: 'Piedra, papel o tijera' },
+<<<<<<< HEAD
   { id: 'validaremail', name: 'Validador' },
   { id: 'conversor-divisas', name: 'Conversor de Divisas' }
+=======
+  { id: 'conversor-divisas', name: 'Conversor de Divisas' },
+  { id: 'lanzar-moneda', name: 'Lanzador de moneda' }
+>>>>>>> cc8bc911dd84a8c2978a4d3368ce7050bdc97f3c
   //{ id: 'clock',  name: 'Reloj' },
 ];
 
@@ -24,8 +29,13 @@ const loaders = {
   clock: () => import('./apps/horaActual/main.js'),
   audio_player: () => import('./apps/audio_player/main.js'),
   piedra: () => import('./apps/piedra/main.js'),
+<<<<<<< HEAD
   validaremail: () => import('./apps/ValidarEmail/main.js'),
   'conversor-divisas': () => import('./apps/conversorDivisas/main.js')
+=======
+  'conversor-divisas': () => import('./apps/conversorDivisas/main.js'),
+  'lanzar-moneda': () => import('./apps/lanzarMoneda/main.js'),
+>>>>>>> cc8bc911dd84a8c2978a4d3368ce7050bdc97f3c
   //clock:  () => import('./apps/clock/main.js'),
 };
 
