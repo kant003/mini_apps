@@ -7,6 +7,8 @@ const apps = [
   { id: 'saludar', name: 'Mi saludo' },
   { id: 'confeti', name: 'Efecto Confeti' },
   { id: 'clock', name: 'Reloj'},
+  { id: 'audio_player', name: 'music'},
+  { id: 'piedra', name: 'Piedra, papel o tijera' },
   //{ id: 'clock',  name: 'Reloj' },
   
 ];
@@ -15,6 +17,8 @@ const loaders = {
   saludar: () => import('./apps/saludar/main.js'),
   confeti: () => import('./apps/Confeti/Main.js'),
   clock: ()=> import('./apps/horaActual/main.js'),
+  audio_player: ()=> import('./apps/audio_player/main.js'),
+  piedra: () => import('./apps/piedra/main.js'),
   //clock:  () => import('./apps/clock/main.js'),
 };
 
