@@ -7,20 +7,23 @@ const apps = [
   { id: 'saludar', name: 'Mi saludo' },
   { id: 'contador', name: 'Contador de Clicks' },
   { id: 'confeti', name: 'Efecto Confeti' },
-  { id: 'clock', name: 'Reloj'},
-  { id: 'audio_player', name: 'music'},
+  { id: 'clock', name: 'Reloj' },
+  { id: 'audio_player', name: 'music' },
   { id: 'piedra', name: 'Piedra, papel o tijera' },
+  { id: 'conversor-divisas', name: 'Conversor de Divisas' }
   //{ id: 'clock',  name: 'Reloj' },
-  
+
+
 ];
 
 const loaders = {
   saludar: () => import('./apps/saludar/main.js'),
   contador: () => import('./apps/contadorClicks/main.js'),
   confeti: () => import('./apps/Confeti/Main.js'),
-  clock: ()=> import('./apps/horaActual/main.js'),
-  audio_player: ()=> import('./apps/audio_player/main.js'),
+  clock: () => import('./apps/horaActual/main.js'),
+  audio_player: () => import('./apps/audio_player/main.js'),
   piedra: () => import('./apps/piedra/main.js'),
+  'conversor-divisas': () => import('./apps/conversorDivisas/main.js'),
   //clock:  () => import('./apps/clock/main.js'),
 };
 
