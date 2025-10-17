@@ -12,8 +12,11 @@ const apps = [
   { id: 'audio_player', name: 'music' },
   { id: 'piedra', name: 'Piedra, papel o tijera' },
   { id: 'validaremail', name: 'Validador' },
-  { id: 'conversor-divisas', name: 'Conversor de Divisas' }
+  { id: 'conversor-divisas', name: 'Conversor de Divisas' },
+  { id: 'lanzar-moneda', name: 'Lanzador de moneda' }
   //{ id: 'clock',  name: 'Reloj' },
+
+
 ];
 
 const loaders = {
@@ -25,7 +28,8 @@ const loaders = {
   audio_player: () => import('./apps/audio_player/main.js'),
   piedra: () => import('./apps/piedra/main.js'),
   validaremail: () => import('./apps/ValidarEmail/main.js'),
-  'conversor-divisas': () => import('./apps/conversorDivisas/main.js')
+  'conversor-divisas': () => import('./apps/conversorDivisas/main.js'),
+  'lanzar-moneda': () => import('./apps/lanzarMoneda/main.js'),
   //clock:  () => import('./apps/clock/main.js'),
 };
 
