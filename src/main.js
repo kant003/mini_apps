@@ -11,11 +11,9 @@ const apps = [
   { id: 'clock', name: 'Reloj' },
   { id: 'audio_player', name: 'music' },
   { id: 'piedra', name: 'Piedra, papel o tijera' },
+  { id: 'validaremail', name: 'Validador' },
   { id: 'conversor-divisas', name: 'Conversor de Divisas' }
-
   //{ id: 'clock',  name: 'Reloj' },
-
-
 ];
 
 const loaders = {
@@ -26,7 +24,8 @@ const loaders = {
   clock: () => import('./apps/horaActual/main.js'),
   audio_player: () => import('./apps/audio_player/main.js'),
   piedra: () => import('./apps/piedra/main.js'),
-  conversor-divisas: () => import('./apps/conversorDivisas/main.js'),
+  validaremail: () => import('./apps/ValidarEmail/main.js'),
+  'conversor-divisas': () => import('./apps/conversorDivisas/main.js')
   //clock:  () => import('./apps/clock/main.js'),
 };
 
