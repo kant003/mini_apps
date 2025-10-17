@@ -1,145 +1,277 @@
-# Preparación inicial
+# 0) Preparación (una sola vez)
 
-## Configurar git
-```bash
-git config --global user.name "XXX"
-git config --global user.email "XXX"
-git config --global core.editor "code --wait"
-```
-
-## Clonar el repo
-Como somos colaboradores, no hace falta forkear el repositorio
+1. **Clonar el repositorio (colaborador, sin fork)**
 
 ```bash
-git clone https://github.com/kant003/mini_apps.git
-cd mini_apps
-git fetch --all
+git clone https://github.com/ORG/REPO.git
+cd REPO
 ```
 
-## Politica de ramas
-- master: siempre estable, es lo que ve el cliente, aqui guardamos las releases
-- develop: todas las features aprobadas del sprint
-- feature/UH-<número>-<slug>: una rama por cada historia de usuario o tarea tecnica
+2. **Configurar Git para historial limpio (recomendado)**
 
-## Descargar todas las ramas
 ```bash
-git switch master    ||   git checkout master
-git pull origin master
-git switch -c develop --track origin/develop  # si no existe localmente
-# o, si ya existe:
-# git switch develop && git pull origin develop
+git config pull.rebase true            # 'git pull' hará rebase por defecto
+git config rebase.autoStash true       # guarda y restaura cambios locales al rebasar
+git config fetch.prune true            # elimina ramas remotas borradas
 ```
 
-# Desarrollar una feature (UH)
-- Elegir un issue del product backlog y lo movemos a la columna del TO DO
-- Nos asignamos como desarrolladores en esa issue
-- creamos la rama de trabajo desde develop
+3. **Traer y seguir ramas remotas**
+
+```bash
+git fetch --all --prune
+git switch -c develop origin/develop   # crea local 'develop' siguiendo a la remota
+git switch -c main origin/main         # o 'master' si aplica
+```
+
+---
+
+# 1) Flujo diario de trabajo (feature branches)
+
+## A) Crear una rama de feature desde develop
 
 ```bash
 git switch develop
-git pull --ff-only origin develop
-git switch -c feature/UH-12-xxxx
+git pull                               # equivalente a: git pull --rebase origin develop
+git switch -c feature/nombre-claro     # p.ej. feature/login-form
 ```
 
-No ponemos a trabajar lanzando pequeños commits sobre esa feature (rama)
-- Un cambio = un commit
-- Usa conventionals commits
-- No olvides colar el Close #XXX para que la UH se cierre cuando se haga el merge
+## B) Trabajar y commitear
+
+Haz cambios pequeños y descriptivos:
 
 ```bash
 git add .
-git commit
+git commit -m "feat(login): validaciones de email y password"
+# Repite el ciclo editar → add → commit
 ```
 
+## C) Sincronizar tu feature si develop avanzó (muy importante)
 
-## Sincronizamos la rama develop
-para evitar la mayor parte de los conflictos
-esto actualiza la rama feature con los cambio en develop
+Mientras programas, otras personas pueden avanzar `develop`. Mantén tu rama al día:
+
 ```bash
-git fetch origin
-git rebase origin/develop       # preferiblemente rebase (esto nos va a generar un historial de commit mas limpio)
-# si hay conflictos se tienen que resolver
-  git add
-  git rebase --continue
+# 1. Actualiza develop
+git fetch
+git switch develop
+git pull                                # rebase por defecto (historial lineal)
+
+# 2. Rebasa tu feature sobre el nuevo develop
+git switch feature/nombre-claro
+git rebase develop
+
+# 3. Si hubo conflictos: resuélvelos, luego:
+git add rutas/archivos-resueltos
+git rebase --continue
+
+# 4. Sube tu feature (si ya la subiste antes, usa --force-with-lease)
+git push -u origin feature/nombre-claro
+# o tras rebase:
 git push --force-with-lease
 ```
 
-## publicar tu rama (feature en develop)
+> **¿Por qué `--force-with-lease`?** Protege contra sobrescribir sin querer cambios ajenos.
+
+---
+
+# 2) Abrir Pull Request (PR) hacia develop
+
+1. Sube tu rama si no lo has hecho:
+
 ```bash
-git push -u origin feature/UH-12-XXXX
+git push -u origin feature/nombre-claro
 ```
 
-## Abrir una PR (pull request)
+2. En GitHub: **New Pull Request** → **base: develop** ← **compare: feature/nombre-claro**.
+3. Rellena título y descripción (qué, por qué, cómo probar).
+4. Pide revisión. Asegúrate de que pasen los checks (CI, linters, tests).
 
-- Alguno de tus compañeros la valida (aceptandola o rachazandola)
-- Seguir las normas de publicación de las PR
+## Estrategia de merge recomendada para PRs a develop
 
-## Aprobación
-Cuando un compañero acepte la PR, realizará un merge Squash & Merge de la rama feature a la rama develp
-Y cerrará la Issue (normalmente de forma automática)
-Hay 3 formas
-1) Create a merge commit
-2) Squash and merge <-- recomendado
-3) Rebase and merge
+* **Squash & merge**: deja un solo commit limpio en `develop` con el resumen de la feature.
+* Alternativa: **Rebase & merge** (historial lineal conservando commits) si el equipo lo prefiere.
 
+---
 
+# 3) Actualizar tu entorno después de un merge
 
+Cuando acepten tu PR:
 
-## Tras el merge
-refrescamos develp
+```bash
+git fetch
+git switch develop
+git pull
+# Opcional: borra tu rama local y remota si ya no se usará
+git branch -d feature/nombre-claro
+git push origin --delete feature/nombre-claro
+```
+
+---
+
+# 4) Integración de develop en main (o master) para releases
+
+Este paso suele hacerlo el **maintainer/release manager**.
+
+1. Asegurar que `develop` está estable (tests verdes, versión actualizada, changelog).
+
+```bash
+git fetch
+git switch develop
+git pull
+```
+
+2. Integrar `develop` en `main` (o `master`):
+
+```bash
+git switch main
+git pull
+git merge --no-ff develop   # crea un commit de merge que marca la release
+# Si preferís historia lineal: git rebase develop (consenso del equipo)
+git push
+```
+
+3. **Etiquetar (tag) la versión** y publicar release:
+
+```bash
+git tag -a v1.2.3 -m "Release v1.2.3"
+git push origin v1.2.3
+```
+
+4. **Mantener ramas sincronizadas** (por hotfixes en main)
+   Si hubo hotfixes directos en `main`, vuelve a llevarlos a `develop`:
+
 ```bash
 git switch develop
-git pull origin develop
+git merge main
+git push
 ```
 
-borramos la rama feature
-```bash
-git brach -d feature/UH-12-XXXX
-git push origin --delete feature/UH-12-XXXX
-```
+---
 
-No olvides de pasar la UH que estaba en TO DO a la columna DONE
+# 5) Hotfix rápido en producción
 
-
-# Integración con Master
-Cuando el sprint termina, tenemos que integrar la rama develop a master
-Hazlo con PR (mejor trazabilidad) o por CLI:
+1. Crear rama desde `main`:
 
 ```bash
-git switch master
-git pull --ff-only origin master
-git merge --ff-only origin/develop   # o haz PR de develop→master
-git push origin master
-
-# Tag SemVer + notas
-git tag -a v1.2.0 -m "release: v1.2.0"
-git push origin v1.2.0
+git switch main
+git pull
+git switch -c hotfix/descripcion-breve
 ```
 
+2. Aplicar cambios, tests y PR **hacia main**.
+3. Tras merge en `main`, **tag** y **deploy**.
+4. Integrar hotfix en `develop`:
 
+```bash
+git switch develop
+git pull
+git merge main
+git push
+```
 
-# Estructura de un commit
+---
 
-<tipo>[scope]: <descripción>
+# 6) Resolver conflictos (resumen)
 
-[Descripción mas detallada]
+1. Durante `git rebase` o `git merge`, Git marca conflictos.
+2. Edita archivos, deja la versión correcta.
+3. Marca como resueltos:
 
-[footer]
+```bash
+git add archivo1 archivo2
+# Si estabas en rebase:
+git rebase --continue
+# Si estabas en merge:
+git commit
+```
 
+4. Si te atascas:
 
+```bash
+git rebase --abort   # o
+git merge --abort
+```
 
-Tipos:
-- feat
-- fix
-- docs
-- style
-- ....
+---
 
+# 7) Buenas prácticas del equipo
 
+* **Convenciones de nombres de ramas:**
+  `feature/...`, `fix/...`, `hotfix/...`, `chore/...`, `docs/...`.
 
+* **Mensajes de commit (Conventional Commits):**
+  `feat: ...`, `fix: ...`, `docs: ...`, `refactor: ...`, `test: ...`, `chore: ...`.
 
+* **Ramas protegidas:** protege `main` y `develop` en GitHub:
 
+  * Requerir PRs + revisiones.
+  * Requerir checks de CI.
+  * Bloquear pushes directos.
 
+* **PRs pequeños y frecuentes:** más fáciles de revisar.
 
+* **CI local antes del push:** linters/tests pasando.
 
+* **Rebase sobre develop antes de abrir/actualizar PR:** reduce conflictos.
 
+---
+
+# 8) “Cheat sheet” de comandos frecuentes
+
+```bash
+# 1. Preparar entorno
+git clone https://github.com/ORG/REPO.git
+cd REPO
+git fetch --all --prune
+git switch -c develop origin/develop
+git switch -c main origin/main   # o master
+
+# 2. Nueva feature
+git switch develop
+git pull
+git switch -c feature/nombre
+# ... cambios ...
+git add .
+git commit -m "feat(area): descripción"
+git push -u origin feature/nombre
+
+# 3. Mantener feature al día
+git fetch
+git switch develop && git pull
+git switch feature/nombre
+git rebase develop
+git push --force-with-lease
+
+# 4. Tras merge del PR
+git switch develop
+git pull
+git branch -d feature/nombre
+git push origin --delete feature/nombre
+
+# 5. Release a main
+git switch main
+git pull
+git merge --no-ff develop
+git push
+git tag -a vX.Y.Z -m "Release vX.Y.Z"
+git push origin vX.Y.Z
+
+# 6. Hotfix
+git switch main && git pull
+git switch -c hotfix/bug
+# ... cambios ...
+git add . && git commit -m "fix: corrige bug X"
+git push -u origin hotfix/bug
+# PR a main, merge y tag
+git switch develop && git pull
+git merge main && git push
+```
+
+---
+
+## ¿Qué deben recordar tus alumnos?
+
+* **Siempre parten de `develop`** para crear sus `feature/…`.
+* **Rebase frecuente** de su feature sobre `develop` para evitar conflictos grandes.
+* **PRs con destino `develop`**, revisados y con CI verde.
+* **El release manager** integra `develop` en `main` y etiqueta versiones.
+* **Hotfixes** nacen en `main` y luego se reinyectan en `develop`.
