@@ -27,5 +27,21 @@
   },
   "dependencies": {
     "canvas-confetti": "^1.9.3"
-  }
+  },
+  "description": "....",
+  "main": "setupTests.js",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kant003/mini_apps.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kant003/mini_apps/issues"
+  },
+  "homepage": "https://github.com/kant003/mini_apps#readme"
 }
