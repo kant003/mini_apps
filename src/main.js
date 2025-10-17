@@ -5,6 +5,7 @@ const appContainer = document.getElementById('app');
 
 const apps = [
   { id: 'saludar', name: 'Mi saludo' },
+  { id: 'contador', name: 'Contador de Clicks' },
   { id: 'confeti', name: 'Efecto Confeti' },
   { id: 'clock', name: 'Reloj'},
   { id: 'audio_player', name: 'music'},
@@ -15,6 +16,7 @@ const apps = [
 
 const loaders = {
   saludar: () => import('./apps/saludar/main.js'),
+  contador: () => import('./apps/contadorClicks/main.js'),
   confeti: () => import('./apps/Confeti/Main.js'),
   clock: ()=> import('./apps/horaActual/main.js'),
   audio_player: ()=> import('./apps/audio_player/main.js'),
@@ -33,7 +35,7 @@ async function loadApp(id) {
   appContainer.appendChild(document.createElement(`${id}-app`));
 }
 
-apps.forEach(app => {
+apps.forEach((app) => {
   const btn = document.createElement('button');
   btn.textContent = app.name;
   btn.addEventListener('click', () => loadApp(app.id));
