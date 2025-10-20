@@ -14,7 +14,9 @@ const apps = [
   { id: 'validaremail', name: 'Validador' },
   { id: 'conversor-divisas', name: 'Conversor de Divisas' },
   { id: 'consultarclima', name: 'Consultar Clima' },
-  { id: 'lanzar-moneda', name: 'Lanzador de moneda' }
+  { id: 'lanzar-moneda', name: 'Lanzador de moneda' },
+  {id: 'adivinar',name: 'Adivinar número'}  
+
   //{ id: 'clock',  name: 'Reloj' },
 
 
@@ -32,6 +34,7 @@ const loaders = {
   'conversor-divisas': () => import('./apps/conversorDivisas/main.js'),
   consultarclima: () => import('./apps/ConsultarClima/main.js'),
   'lanzar-moneda': () => import('./apps/lanzarMoneda/main.js'),
+  adivinar: () => import('./apps/adivinar/main.js') 
   //clock:  () => import('./apps/clock/main.js'),
 };
 
