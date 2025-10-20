@@ -130,7 +130,7 @@ class JuegoAdivinarNumeros extends HTMLElement {
         } else { 
             this.mostrarResultado('Demasiado bajo. ¡Inténtalo de nuevo!', 'mensaje-bajo');
         }
-    } 
+    }  
 
     
     finalizarJuego() {

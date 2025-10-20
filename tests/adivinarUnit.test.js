@@ -8,7 +8,7 @@ describe('testeando generarNumeroAleatorio', () => {
     const resultado = generarNumeroAleatorio(min, max);
     expect(resultado).toBeGreaterThanOrEqual(min);
     expect(resultado).toBeLessThanOrEqual(max); 
-  });
+  }); 
 
   it('debe devolver el mismo número si min y max son iguales', () => {
     const min = 5;

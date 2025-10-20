@@ -6,7 +6,7 @@ function mount() {
     const $webComponent = document.createElement('adivinar-app');
     document.body.appendChild($webComponent);
     return $webComponent.shadowRoot; 
-}
+} 
 
 describe('testeando JuegoAdivinarNumeros E2E', () => {
 
