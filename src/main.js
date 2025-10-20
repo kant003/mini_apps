@@ -13,6 +13,7 @@ const apps = [
   { id: 'piedra', name: 'Piedra, papel o tijera' },
   { id: 'validaremail', name: 'Validador' },
   { id: 'conversor-divisas', name: 'Conversor de Divisas' },
+  { id: 'consultarclima', name: 'Consultar Clima' },
   { id: 'lanzar-moneda', name: 'Lanzador de moneda' }
   //{ id: 'clock',  name: 'Reloj' },
 
@@ -29,6 +30,7 @@ const loaders = {
   piedra: () => import('./apps/piedra/main.js'),
   validaremail: () => import('./apps/ValidarEmail/main.js'),
   'conversor-divisas': () => import('./apps/conversorDivisas/main.js'),
+  consultarclima: () => import('./apps/ConsultarClima/main.js'),
   'lanzar-moneda': () => import('./apps/lanzarMoneda/main.js'),
   //clock:  () => import('./apps/clock/main.js'),
 };
