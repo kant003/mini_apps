@@ -5,15 +5,35 @@ const appContainer = document.getElementById('app');
 
 const apps = [
   { id: 'saludar', name: 'Mi saludo' },
+  { id: 'dados', name: 'Lanzador de Dados' },
+  { id: 'contador', name: 'Contador de Clicks' },
   { id: 'confeti', name: 'Efecto Confeti' },
   { id: 'r_color', name: 'Generador de Colores Aleatorios' },
+  { id: 'clock', name: 'Reloj' },
+  { id: 'audio_player', name: 'music' },
+  { id: 'piedra', name: 'Piedra, papel o tijera' },
+  { id: 'validaremail', name: 'Validador' },
+  { id: 'conversor-divisas', name: 'Conversor de Divisas' },
+  { id: 'consultarclima', name: 'Consultar Clima' },
+  { id: 'lanzar-moneda', name: 'Lanzador de moneda' }
   //{ id: 'clock',  name: 'Reloj' },
+
+
 ];
 
 const loaders = {
   saludar: () => import('./apps/saludar/main.js'),
+  dados: () => import('./apps/dados/dice_main.js'),
+  contador: () => import('./apps/contadorClicks/main.js'),
   confeti: () => import('./apps/Confeti/Main.js'),
   r_color: () => import('./apps/r_color/main.js'),
+  clock: () => import('./apps/horaActual/main.js'),
+  audio_player: () => import('./apps/audio_player/main.js'),
+  piedra: () => import('./apps/piedra/main.js'),
+  validaremail: () => import('./apps/ValidarEmail/main.js'),
+  'conversor-divisas': () => import('./apps/conversorDivisas/main.js'),
+  consultarclima: () => import('./apps/ConsultarClima/main.js'),
+  'lanzar-moneda': () => import('./apps/lanzarMoneda/main.js'),
   //clock:  () => import('./apps/clock/main.js'),
 };
 
@@ -28,7 +48,7 @@ async function loadApp(id) {
   appContainer.appendChild(document.createElement(`${id}-app`));
 }
 
-apps.forEach(app => {
+apps.forEach((app) => {
   const btn = document.createElement('button');
   btn.textContent = app.name;
   btn.addEventListener('click', () => loadApp(app.id));
